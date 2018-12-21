@@ -10,7 +10,7 @@ public class MainClassTest {
 
         int a = Num.getLocalNumber();
 
-        Assert.assertEquals("Возвращаемое значение не равно 14, тест не пройден", 14, a);
+        Assert.assertEquals("Метод getLocalNumber возвращает значение не равное 14", 14, a);
     }
 
     @Test
@@ -18,7 +18,7 @@ public class MainClassTest {
 
         int a = Num.getClassNumber();
 
-        Assert.assertTrue("Возвращаемое значение меньше 45", a > 45);
+        Assert.assertTrue("Метод getClassNumber возвращает значение меньше 45", a > 45);
 
     }
 
@@ -27,7 +27,7 @@ public class MainClassTest {
 
         String str = Num.getClassString();
 
-        Assert.assertTrue("в строке нет подстроки Hello или hello", str.contains("hello") || str.contains("Hello"));
+        Assert.assertTrue("Метод getClassString возвращает строку, не содержащую подстроку Hello или hello", str.contains("hello") || str.contains("Hello"));
     }
 
 }
