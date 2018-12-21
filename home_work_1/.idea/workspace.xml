@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805124bb-fbb4-401a-972a-49ef82957b99" name="Default Changelist" comment="" />
+    <list default="true" id="805124bb-fbb4-401a-972a-49ef82957b99" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/home_work_1/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/home_work_1/MainClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/home_work_1/MainClassTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/home_work_1/MainClassTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainClassTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +24,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+            <state relative-caret-position="45">
+              <caret line="3" column="47" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -23,8 +33,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MainClassTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+            <state relative-caret-position="180">
+              <caret line="12" column="27" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,20 +51,24 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/MainClass.java" />
         <option value="$PROJECT_DIR$/src/MainClassTest.java" />
+        <option value="$PROJECT_DIR$/src/MainClass.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="20" />
     <option name="y" value="43" />
     <option name="width" value="1400" />
     <option name="height" value="757" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -80,7 +94,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545339549035" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545417117111" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -94,11 +108,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MainClassTest.testGetClassString">
+  <component name="RunManager" selected="JUnit.MainClassTest">
     <configuration name="MainClassTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="home_work_1" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MainClassTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainClassTest.testGetClassNumber" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="home_work_1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MainClassTest" />
+      <option name="METHOD_NAME" value="testGetClassNumber" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,8 +149,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MainClassTest.testGetClassString" />
         <item itemvalue="JUnit.MainClassTest" />
+        <item itemvalue="JUnit.MainClassTest.testGetClassString" />
+        <item itemvalue="JUnit.MainClassTest.testGetClassNumber" />
         <item itemvalue="JUnit.MainClassTest.testGetLocalNumber" />
       </list>
     </recent_temporary>
@@ -145,27 +170,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainClassTest - 2018.12.20 at 23h 40m 43s.xml">
-      <configuration name="MainClassTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest - 2018.12.20 at 23h 42m 00s.xml">
-      <configuration name="MainClassTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 42m 10s.xml">
-      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 53m 20s.xml">
-      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 53m 59s.xml">
-      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 55m 57s.xml">
-      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 56m 25s.xml">
-      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 56m 55s.xml">
       <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
     </history-entry>
@@ -175,22 +179,42 @@
     <history-entry file="MainClassTest_testGetClassString - 2018.12.20 at 23h 58m 22s.xml">
       <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="MainClassTest_testGetClassString - 2018.12.21 at 21h 02m 17s.xml">
+      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest_testGetClassNumber - 2018.12.21 at 21h 02m 24s.xml">
+      <configuration name="MainClassTest.testGetClassNumber" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest_testGetClassString - 2018.12.21 at 21h 17m 16s.xml">
+      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest_testGetClassString - 2018.12.21 at 21h 17m 32s.xml">
+      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest_testGetClassString - 2018.12.21 at 21h 18m 44s.xml">
+      <configuration name="MainClassTest.testGetClassString" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest - 2018.12.21 at 21h 18m 49s.xml">
+      <configuration name="MainClassTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainClassTest - 2018.12.21 at 21h 19m 11s.xml">
+      <configuration name="MainClassTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="20" y="43" width="1400" height="757" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2533137" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3187773" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3180723" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -198,6 +222,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -211,15 +236,15 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/MainClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+        <state relative-caret-position="45">
+          <caret line="3" column="47" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MainClassTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+        <state relative-caret-position="180">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
