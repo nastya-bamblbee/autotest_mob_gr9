@@ -134,7 +134,7 @@ public class Exp1 {
 
     }
 
-    @Test //Ex2: Создание метода
+    @Test //Ex2: Создание метода.
     public void testPresenceText () {
 
         waitForElementAndClick(
