@@ -102,14 +102,13 @@ public class Exp1 {
                 5
         );
 
-        boolean searchEmptyResult  = waitForElementAndAttributePresence(
+        waitForElementAndAttributePresence(
                 By.id("org.wikipedia:id/search_empty_message"),
                 "Search and read the free encyclopedia in your language",
                 "text",
                 "cannot find element",
                 5
         );
-        Assert.assertTrue("search not empty", searchEmptyResult);
 
     }
 
@@ -160,13 +159,11 @@ public class Exp1 {
                 5
         );
 
-        boolean searchResult = waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
+        waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
                 "Search…",
                 "text",
                 "cannot find element with text 'Search…'",
                 10);
-
-        Assert.assertTrue("element with text 'Search…' not found ", searchResult);
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text,'Search…')]"),
@@ -256,11 +253,17 @@ public class Exp1 {
     }
 
     //Ex2: Создание метода
-    private boolean waitForElementAndAttributePresence(By by, String exp_value, String attribute, String error_message, long timeoutInSeconds) {
+    private void waitForElementAndAttributePresence(By by, String exp_value, String attribute, String error_message, long timeoutInSeconds) {
 
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
 
-        return  element.getAttribute(attribute).equals(exp_value);
+        String attributeValue =   element.getAttribute(attribute);
+
+        if (!(attributeValue.equals(exp_value)))
+        {
+            String defMessage = "Value '" + attributeValue + "' not equals  '" + exp_value + "' value. \n"  ;
+            throw new AssertionError(defMessage + " " + error_message);
+        }
 
     }
 }
