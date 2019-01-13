@@ -10,8 +10,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class Exp1 {
 
@@ -83,7 +89,7 @@ public class Exp1 {
        WebElement element =  waitForElementPresent(
                 By.id("org.wikipedia:id/search_results_list"),
                 "cannot find element",
-                10
+                5
         );
 
         List searchResult = element.findElements(By.id("org.wikipedia:id/page_list_item_container"));
@@ -171,6 +177,42 @@ public class Exp1 {
 
     }
 
+    @Test //Ex4*: Тест: проверка слов в поиске
+    public void testPresenceWordsInSearch () {
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                "cannot find element with text 'Search Wikipedia'",
+                5
+        );
+        String searchVal = "barbi";
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                searchVal,
+                "cannot find element with text 'Search…'",
+                5
+        );
+
+        WebElement element =  waitForElementPresent(
+                By.id("org.wikipedia:id/search_results_list"),
+                "cannot find element",
+                10
+        );
+
+        List<WebElement> searchResult = element.findElements(By.id("org.wikipedia:id/page_list_item_container"));
+
+        Iterator<WebElement> it = searchResult.iterator();
+        for (;it.hasNext();  ) {
+            WebElement elem = it.next();
+            String title = elem.findElement(By.id("org.wikipedia:id/page_list_item_title")).getAttribute("text").toLowerCase();
+            String[] titleWords = title.split("[–| ]").clone();
+
+            Predicate<String> pred = o -> Objects.equals(o, searchVal);
+            Boolean res = Arrays.stream(titleWords).anyMatch(pred);
+            Assert.assertTrue("none element found at :" + title, res);
+        }
+    }
+
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
 
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
@@ -219,7 +261,7 @@ public class Exp1 {
 
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
 
-        return  element.getAttribute(attribute).contains(exp_value);
+        return  element.getAttribute(attribute).equals(exp_value);
 
     }
 }
