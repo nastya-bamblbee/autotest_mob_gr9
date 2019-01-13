@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class Exp1 {
 
@@ -63,7 +64,7 @@ public class Exp1 {
 
     }
 
-    @Test
+    @Test //Ex3: Тест: отмена поиска
     public void testCancelSearch () {
 
         waitForElementAndClick(
@@ -76,24 +77,34 @@ public class Exp1 {
                 By.xpath("//*[contains(@text,'Search…')]"),
                 "java",
                 "cannot find element with text 'Search…'",
-                5
+                30
         );
 
-        waitForElementAndClear(
-                By.id("org.wikipedia:id/search_src_text"),
-                "cannot find element Search line",
-                5
+       WebElement element =  waitForElementPresent(
+                By.id("org.wikipedia:id/search_results_list"),
+                "cannot find element",
+                10
         );
+
+        List searchResult = element.findElements(By.id("org.wikipedia:id/page_list_item_container"));
+
+        Assert.assertTrue("found less than 2 elements", searchResult.size() > 1);
+
         waitForElementAndClick(
                 By.id("org.wikipedia:id/search_close_btn"),
                 "cannot find X to cancel search ",
                 5
         );
-        waitForElementNotPresent(
-                By.id("org.wikipedia:id/search_close_btn"),
-                "element X present",
+
+        boolean result = waitForElementAndAttributePresence(
+                By.id("org.wikipedia:id/search_empty_message"),
+                "Search and read the free encyclopedia in your language",
+                "text",
+                "cannot find element",
                 5
         );
+        Assert.assertTrue("search not empty", result);
+
     }
 
     @Test
@@ -143,11 +154,13 @@ public class Exp1 {
                 5
         );
 
-        Assert.assertTrue("element with text 'Search…' not found ",waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
+        boolean result = waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
                 "Search…",
                 "text",
                 "cannot find element with text 'Search…'",
-                10));
+                10);
+
+        Assert.assertTrue("element with text 'Search…' not found ", result);
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text,'Search…')]"),
@@ -205,9 +218,8 @@ public class Exp1 {
     private boolean waitForElementAndAttributePresence(By by, String exp_value, String attribute, String error_message, long timeoutInSeconds) {
 
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
-        boolean isPresent = element.getAttribute(attribute).contains(exp_value);
 
-        return  isPresent;
+        return  element.getAttribute(attribute).contains(exp_value);
 
     }
 }
