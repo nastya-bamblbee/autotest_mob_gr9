@@ -207,8 +207,7 @@ public class Exp1 {
             String title = elem.findElement(By.id("org.wikipedia:id/page_list_item_title")).getAttribute("text").toLowerCase();
             String[] titleWords = title.split("[–| ]").clone();
 
-            Predicate<String> pred = o -> Objects.equals(o, searchVal);
-            Boolean res = Arrays.stream(titleWords).anyMatch(pred);
+            Boolean res = Arrays.stream(titleWords).anyMatch(o -> Objects.equals(o, searchVal));
             Assert.assertTrue("none element found at :" + title, res);
         }
     }
