@@ -96,14 +96,14 @@ public class Exp1 {
                 5
         );
 
-        boolean result = waitForElementAndAttributePresence(
+        boolean searchEmptyResult  = waitForElementAndAttributePresence(
                 By.id("org.wikipedia:id/search_empty_message"),
                 "Search and read the free encyclopedia in your language",
                 "text",
                 "cannot find element",
                 5
         );
-        Assert.assertTrue("search not empty", result);
+        Assert.assertTrue("search not empty", searchEmptyResult);
 
     }
 
@@ -129,18 +129,18 @@ public class Exp1 {
                 5
         );
 
-        WebElement title_element =  waitForElementPresent(
+        WebElement titleElement =  waitForElementPresent(
                 By.id("org.wikipedia:id/view_page_title_text"),
                 "cannot find title",
                 15
         );
 
-        String article_text = title_element.getAttribute("text");
+        String articleText = titleElement.getAttribute("text");
 
         Assert.assertEquals(
                 "We see unexpected title",
                 "Java (programming language)",
-                article_text
+                articleText
         );
 
     }
@@ -154,13 +154,13 @@ public class Exp1 {
                 5
         );
 
-        boolean result = waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
+        boolean searchResult = waitForElementAndAttributePresence(By.id("org.wikipedia:id/search_src_text"),
                 "Search…",
                 "text",
                 "cannot find element with text 'Search…'",
                 10);
 
-        Assert.assertTrue("element with text 'Search…' not found ", result);
+        Assert.assertTrue("element with text 'Search…' not found ", searchResult);
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text,'Search…')]"),
