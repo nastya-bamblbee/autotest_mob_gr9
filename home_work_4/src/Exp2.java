@@ -34,6 +34,7 @@ public class Exp2 {
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackege","org.wikipedia");
         capabilities.setCapability("appActivity",".main.MainActivity");
+        //capabilities.setCapability("orientation", "LANDSCAPE"); //Ex7*: Поворот экрана
         capabilities.setCapability("app","/Users/anastasiya/Documents/autotest_les/home_work_3/apks/org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
@@ -249,7 +250,7 @@ public class Exp2 {
                 15
         );
 
-        String titleBeforeRitation  = waitForElementAndGetAttribute(
+        String titleBeforeRotation  = waitForElementAndGetAttribute(
                 By.id("org.wikipedia:id/view_page_title_text"),
                 "text",
                 "cannot find title of article",
@@ -257,15 +258,16 @@ public class Exp2 {
         );
 
         driver.rotate(ScreenOrientation.LANDSCAPE);
+//        driver.rotate(ScreenOrientation.PORTRAIT);
 
-        String titleAfterRitation  = waitForElementAndGetAttribute(
+        String titleAfterRotation  = waitForElementAndGetAttribute(
                 By.id("org.wikipedia:id/view_page_title_text"),
                 "text",
                 "cannot find title of article",
                 15
         );
 
-        Assert.assertEquals("title not equals",titleBeforeRitation, titleAfterRitation);
+        Assert.assertEquals("title not equals",titleBeforeRotation, titleAfterRotation);
     }
 
     @Test
@@ -288,6 +290,7 @@ public class Exp2 {
                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
                 "cannot find element with text 'Object-oriented programming language'"
         );
+        driver.rotate(ScreenOrientation.PORTRAIT);
 
         driver.runAppInBackground(5);
 
@@ -482,6 +485,38 @@ public class Exp2 {
         Assert.assertEquals("title article in folder and title article not equals", titleSavedArticle, titleArticle);
     }
 
+    @Test //Ex6: Тест: assert title
+    public void testTitleArticlePresence () {
+
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                "cannot find element with text 'Search Wikipedia'",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "Appium",
+                "cannot find element with text 'Search…'",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title'][@text='Appium']"),
+                "cannot find element with text 'Appium'",
+                5
+        );
+
+        assertElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/view_page_title_text'][@text='Java (programming language)']"),
+                "cannot find element"
+        );
+
+
+
+    }
+
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
 
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
@@ -592,6 +627,22 @@ public class Exp2 {
         int amountOfElements = getAmountOfElement(by);
         if (amountOfElements > 0) {
             String defMessage = "An element '" + by.toString() + "' supposed to be not present";
+            throw new AssertionError(defMessage + " " + error_message);
+        }
+    }
+
+//    private String assertElementPresent(By by, String error_message){
+//
+//        String element = driver.findElement(by).getTagName();
+//
+//        return element;
+//    }
+    private void assertElementPresent(By by, String error_message) {
+
+        String titleOfArticle = driver.findElement(by).getTagName();
+        if (titleOfArticle.isEmpty()) {
+
+            String defMessage = "there is no element '" + by.toString() + "' the page";
             throw new AssertionError(defMessage + " " + error_message);
         }
     }
