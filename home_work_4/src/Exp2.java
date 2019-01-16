@@ -34,7 +34,7 @@ public class Exp2 {
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackege","org.wikipedia");
         capabilities.setCapability("appActivity",".main.MainActivity");
-        //capabilities.setCapability("orientation", "LANDSCAPE"); //Ex7*: Поворот экрана
+        capabilities.setCapability("orientation", "PORTRAIT"); //Ex7*: Поворот экрана. каждый новый тест будет начинаться с портретной ориентации.
         capabilities.setCapability("app","/Users/anastasiya/Documents/autotest_les/home_work_3/apks/org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
