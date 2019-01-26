@@ -86,5 +86,19 @@ public class SearchTests extends CoreTestCase {
 
     }
 
+//    @Test// Ex9*
+//    public void testSearchWithTitleAndDescription () {
+//
+//
+//        SearchPageObject SearchPageObject = new  SearchPageObject(driver);
+//        SearchPageObject.initSearchInput();
+//        String searchValue = "Java";
+//        SearchPageObject.typeSearchLine(searchValue);
+//        String titleSearchArticle = "Java";
+//        String descSearchArticle = "Object-oriented programming language";
+//        SearchPageObject.waitForElementByTitleAndDescription(titleSearchArticle, descSearchArticle);
+//
+//    }
+
 
 }
