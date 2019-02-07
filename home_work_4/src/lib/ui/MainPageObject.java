@@ -2,6 +2,8 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import lib.Platform;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -80,7 +82,7 @@ public class MainPageObject {
 
         int X = size.width / 2;
         int startY = (int) (size.height * 0.8);
-        int endY = (int) (size.height * 0.2);
+        int endY = (int) (size.height * 0.3);
 
         action.press(X, startY).waitAction(timeOfSwipe).moveTo(X, endY).release().perform();
     }
@@ -107,6 +109,50 @@ public class MainPageObject {
         }
     }
 
+    public void swipeUpTitleElementAppear (String locator, String error_message, int max_swipe) {
+
+        int alreadySwiped = 0;
+
+        while (!this.isElementLocatedOnTheScreen(locator)) {
+
+            if (alreadySwiped > max_swipe) {
+
+                Assert.assertTrue(error_message, this.isElementLocatedOnTheScreen(locator));
+            }
+
+            swipeUpQuick();
+            ++alreadySwiped;
+        }
+
+    }
+
+    public boolean isElementLocatedOnTheScreen (String locator) {
+
+        int element_location_by_y = this.waitForElementPresent(locator, "cannot find element", 1).getLocation().getY();
+        int screen_size_by_y = driver.manage().window().getSize().getHeight();
+        return element_location_by_y < screen_size_by_y;
+    }
+
+    public void clickToElementToTheRightUpperCorner (String locator, String error_message) {
+
+        String locatorAdd = locator + "/..";
+        System.out.println(locatorAdd);
+
+        WebElement element = this.waitForElementPresent(locatorAdd,error_message);
+        int rightX = element.getLocation().getX();
+        int upperY = element.getLocation().getY();
+        int lowerY = upperY + element.getSize().getHeight();
+        int middleY = (upperY + lowerY) / 2;
+        int width = element.getSize().getWidth();
+
+        int pointToClickX = (rightX + width) - 5 ;
+        int pointToClickY = middleY;
+
+        TouchAction action = new TouchAction(driver);
+        action.tap(pointToClickX, pointToClickY).perform();
+
+    }
+
     public void swipeElementToLeft(String locator, String error_messages) {
 
         WebElement element = waitForElementPresent(locator, error_messages, 10);
@@ -118,7 +164,20 @@ public class MainPageObject {
         int middleY = (upperY + lowerY) / 2;
 
         TouchAction action = new TouchAction(driver);
-        action.press(rightX, middleY).waitAction(300).moveTo(leftX, middleY).release().perform();
+
+        action.press(rightX, middleY);
+        action.waitAction(300);
+
+        if (Platform.getInstance().isAndroid()) {
+
+            action.moveTo(leftX, middleY);
+        } else {
+
+            int offsetX = (-1 * element.getSize().getWidth());
+            action.moveTo(offsetX,0);
+        }
+        action.release();
+        action.perform();
 
     }
 
@@ -139,6 +198,17 @@ public class MainPageObject {
     }
 
     public void assertElementPresent(String locator, String error_message) {
+
+        By by = getLocatorByString(locator);
+        String titleOfArticle = driver.findElement(by).getTagName();
+        if (titleOfArticle.isEmpty()) {
+
+            String defMessage = "there is no element '" + locator + "' the page";
+            throw new AssertionError(defMessage + " " + error_message);
+        }
+    }
+
+    public void assertElementPresentForIOS(String locator, String error_message) {
 
         By by = getLocatorByString(locator);
         String titleOfArticle = driver.findElement(by).getTagName();

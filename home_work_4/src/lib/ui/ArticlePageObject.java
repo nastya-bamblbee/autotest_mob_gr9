@@ -1,20 +1,21 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.openqa.selenium.WebElement;
 
-public class ArticlePageObject extends MainPageObject {
+abstract public class ArticlePageObject extends MainPageObject {
 
-    private static final String TITLE = "id:org.wikipedia:id/view_page_title_text";
-    private static final String FOOTER_ELEMENT = "xpath://*[@text='View page in browser']";
-    private static final String OPTIONS_BUTTON = "xpath://android.widget.ImageView[@content-desc='More options']";
-    private static final String OPTIONS_ADD_TO_LIST_BUTTON = "xpath://*[@text='Add to reading list']";
-    private static final String ADD_TO_LIST_OVERLAY = "id:org.wikipedia:id/onboarding_button";
-    private static final String LIST_NAME_INPUT = "id:org.wikipedia:id/text_input";
-    private static final String LIST_OK_BUTTON = "xpath://*[@text='OK']";
-    private static final String CLOSE_ARTICLE_BUTTON = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
-    private static final String LIST_OF_LISTS = "id:org.wikipedia:id/list_of_lists";
-    private static final String FOLDER_NAME_IN_LIST_TPL = "xpath://*[@resource-id='org.wikipedia:id/item_title'][@text='{FOLDER_NAME}']";
+    protected static String TITLE;
+    protected static  String FOOTER_ELEMENT;
+    protected static  String OPTIONS_BUTTON;
+    protected static  String OPTIONS_ADD_TO_LIST_BUTTON;
+    protected static  String ADD_TO_LIST_OVERLAY;
+    protected static  String LIST_NAME_INPUT;
+    protected static  String LIST_OK_BUTTON;
+    protected static  String CLOSE_ARTICLE_BUTTON;
+    protected static  String LIST_OF_LISTS ;
+    protected static  String FOLDER_NAME_IN_LIST_TPL;
 
     public ArticlePageObject (AppiumDriver driver) {
 
@@ -25,20 +26,46 @@ public class ArticlePageObject extends MainPageObject {
         return FOLDER_NAME_IN_LIST_TPL.replace("{FOLDER_NAME}", nameOfFolder);
     }
 
+    private static String getTitle (String title) {
+
+        return TITLE.replace("{TITLE}", title);
+    }
+
     public WebElement waitForTitleElement() {
 
         return this.waitForElementPresent(TITLE, "cannot title of article", 15);
     }
 
+    public WebElement waitForTitleElementForIOS (String title) {
+
+        String titleID = getTitle(title);
+        return this.waitForElementPresent(titleID,"cannot find title of article", 15);
+    }
+
+    public String getArticleTitleForIOS (String title) {
+
+        WebElement titleElement = waitForTitleElementForIOS(title);
+        return titleElement.getAttribute("name");
+    }
+
     public String getArticleTitle() {
 
         WebElement titleElement = waitForTitleElement();
+
         return titleElement.getAttribute("text");
     }
 
     public void swipeToFooter() {
 
-        this.swipeUpToFindElement(FOOTER_ELEMENT, "cannot find footer", 15);
+        if (Platform.getInstance().isAndroid()) {
+
+            this.swipeUpToFindElement(FOOTER_ELEMENT, "cannot find footer", 40);
+
+        } else {
+
+            this.swipeUpTitleElementAppear(FOOTER_ELEMENT,"cannot find footer",40);
+        }
+
     }
 
     public void addArticleToMyList(String nameOfFolder) {
@@ -112,5 +139,17 @@ public class ArticlePageObject extends MainPageObject {
     public void assertTitlePresence() {
 
         this.assertElementPresent(TITLE, "cannot find element 'title' on page");
+    }
+
+    public void assertTitlePresenceForIOS (String  title) {
+
+        String titleID = getTitle(title);
+        System.out.println(titleID);
+        this.assertElementPresent(titleID, "cannot find element 'title' on page");
+    }
+
+    public void addArticlesToMySaved() {
+
+        this.waitForElementAndClick(OPTIONS_ADD_TO_LIST_BUTTON, "cannot find and click to Sve to later button", 5);
     }
 }

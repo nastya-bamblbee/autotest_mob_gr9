@@ -1,11 +1,12 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 
-public class MyListPageObject extends MainPageObject {
+abstract public class MyListPageObject extends MainPageObject {
 
-    public static final String FOLDER_NAME_TPL = "xpath://*[@text= '{FOLDER_NAME}']";
-    public static final String ARTICLE_TITLE_TPL = "xpath://*[@text='{TITLE}']";
+    protected static String FOLDER_NAME_TPL;
+    protected static String ARTICLE_TITLE_TPL;
 
     public MyListPageObject(AppiumDriver driver) {
 
@@ -42,6 +43,11 @@ public class MyListPageObject extends MainPageObject {
                 articleTitleXpath,
                 "Cannot find saved article"
         );
+
+        if (Platform.getInstance().isIOS()) {
+
+            this.clickToElementToTheRightUpperCorner(articleTitleXpath, "cannot find  end click to saved article");
+        }
         this.waitForArticleToDisappear(articleTitle);
     }
 
@@ -76,6 +82,22 @@ public class MyListPageObject extends MainPageObject {
     public String getTitleArticleInFolder(String articleTitle) {
 
         String articleTitleXpath = getArticleTitle(articleTitle);
-        return this.waitForElementPresent(articleTitleXpath, "cannot find article " + articleTitle, 10).getText();
+
+        if (Platform.getInstance().isAndroid()) {
+
+            return this.waitForElementPresent(articleTitleXpath, "cannot find article " + articleTitle, 10).getText();
+        } else {
+
+
+            //дописать. разбить лейбл на две части, взять первую, сравнить с нейм в статье
+            String fullLabel = waitForElementPresent(articleTitleXpath, "cannot find article " + articleTitle, 10).getText();
+            String label = fullLabel.split("\n")[0];
+            return label;
+        }
+
     }
+
+
+
+
 }

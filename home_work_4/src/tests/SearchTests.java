@@ -1,7 +1,9 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class SearchTests extends CoreTestCase {
@@ -9,7 +11,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testSearch() {
 
-        SearchPageObject SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String searchValue = "Java";
         SearchPageObject.typeSearchLine(searchValue);
@@ -21,7 +23,7 @@ public class SearchTests extends CoreTestCase {
     @Test //Ex3: Тест: отмена поиска
     public void testCancelSearch () {
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         String searchValue = "Java";
         SearchPageObject.typeSearchLine(searchValue);
@@ -38,10 +40,20 @@ public class SearchTests extends CoreTestCase {
     @Test //Ex2: Создание метода.
     public void testPresenceText () {
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        String expValue;
+
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
-        String expValue = "Search…";
-        String attribute = "text";
+
+        if (Platform.getInstance().isAndroid()){
+
+            expValue = "Search…";
+
+        }else {
+
+            expValue = "Search Wikipedia";
+        }
+        String attribute = "name";
         SearchPageObject.assertTextSearchLine(expValue, attribute);
         String searchValue = "Java";
         SearchPageObject.typeSearchLine(searchValue);
@@ -50,19 +62,19 @@ public class SearchTests extends CoreTestCase {
     @Test //Ex4*: Тест: проверка слов в поиске
     public void testPresenceWordsInSearch () {
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         String searchValue = "1942";
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(searchValue);
         SearchPageObject.waitForSearchResultList();
-        String attribute = "text";
+        String attribute = "name";
         SearchPageObject.assertContainSearchResult(searchValue, attribute);
     }
 
     @Test
     public void testAmountOfNotEmptySearchResult () {
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
 
         String searchValue = "Linkin Park Discography";
         SearchPageObject.initSearchInput();
@@ -76,7 +88,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testAmountOfEmptySearch () {
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
 
         String searchValue = "fgtyhykmbg";
         SearchPageObject.initSearchInput();

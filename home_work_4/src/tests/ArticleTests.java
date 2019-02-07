@@ -1,8 +1,11 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.ArticlePageObjectFactory;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class ArticleTests extends CoreTestCase {
@@ -10,15 +13,24 @@ public class ArticleTests extends CoreTestCase {
     @Test
     public void testCompareArticleTitle () {
 
-        SearchPageObject SearchPageObject = new  SearchPageObject(driver);
+        String title;
+
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         String searchValue = "Java";
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(searchValue);
         String titleSearchArticle = "Java (programming language)";
         SearchPageObject.clickByArticleWithSubstring(titleSearchArticle);
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        String title =  ArticlePageObject.getArticleTitle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+
+        if (Platform.getInstance().isAndroid()) {
+
+            title =  ArticlePageObject.getArticleTitle();
+        } else {
+
+            title = ArticlePageObject.getArticleTitleForIOS(titleSearchArticle);
+        }
 
         assertEquals(
                 "We see unexpected title",
@@ -32,13 +44,23 @@ public class ArticleTests extends CoreTestCase {
     public void testSwipeArticle () {
 
 
-        SearchPageObject  SearchPageObject = new  SearchPageObject(driver);
+        SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Appium");
-        SearchPageObject.clickByArticleWithSubstring("Appium");
+        String search = "Appium";
+        SearchPageObject.typeSearchLine(search);
+        String searchArticleTitle = "Appium";
+        SearchPageObject.clickByArticleWithSubstring(searchArticleTitle);
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+
+        if (Platform.getInstance().isAndroid()){
+
+            ArticlePageObject.waitForTitleElement();
+        } else {
+
+            ArticlePageObject.getArticleTitleForIOS(searchArticleTitle);
+        }
+
         ArticlePageObject.swipeToFooter();
 
     }
@@ -46,16 +68,24 @@ public class ArticleTests extends CoreTestCase {
     @Test //Ex6: Тест: assert title
     public void testTitleArticlePresence () {
 
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
-        String searchValueSecondArticle = "Java";
-        String titleSearchSecondArticle = "Java (programming language)";
+        String searchValueSecondArticle = "Appium";
+        String titleSearchSecondArticle = "Appium";
         SearchPageObject.typeSearchLine(searchValueSecondArticle);
         SearchPageObject.clickByArticleWithSubstring(titleSearchSecondArticle);
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        ArticlePageObject.assertTitlePresence();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+
+        if (Platform.getInstance().isAndroid()) {
+
+            ArticlePageObject.assertTitlePresence();
+
+        }else {
+
+            ArticlePageObject.assertTitlePresenceForIOS(titleSearchSecondArticle);
+        }
 
     }
 

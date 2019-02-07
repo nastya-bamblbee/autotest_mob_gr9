@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,17 +11,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchPageObject extends MainPageObject {
+abstract public class SearchPageObject extends MainPageObject {
 
-    private static final String SEARCH_INIT_ELEMENT = "xpath://*[contains(@text,'Search Wikipedia')]";
-    private static final String SEARCH_INPUT = "xpath://*[contains(@text,'Search…')]";
-    private static final String SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title'][@text='{SUBSTRING}']";
-    private static final String SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn";
-    private static final String SEARCH_RESULT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']";
-    private static final String SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@text = 'No results found']";
-    private static final String SEARCH_RESULT_LIST = "id:org.wikipedia:id/search_results_list";
-    private static final String SEARCH_EMPTY_PAGE = "id:org.wikipedia:id/search_empty_message";
-    private static final String SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL = "xpath://*[@text = '{TITLESUBSTRING}']/following-sibling::text[text() = '{DESCSUBSTRING}'] ";
+    protected static  String SEARCH_INIT_ELEMENT ;
+    protected static  String SEARCH_INPUT ;
+    protected static  String SEARCH_RESULT_BY_SUBSTRING_TPL;
+    protected static  String SEARCH_CANCEL_BUTTON ;
+    protected static  String SEARCH_RESULT ;
+    protected static  String SEARCH_EMPTY_RESULT_ELEMENT ;
+    protected static  String SEARCH_RESULT_LIST ;
+    protected static  String SEARCH_EMPTY_PAGE;
+    protected static  String SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL;
 
 
     public SearchPageObject(AppiumDriver driver)
@@ -112,22 +113,46 @@ public class SearchPageObject extends MainPageObject {
 
     public void assertContainSearchResult (String searchVal,  String attribute) {
 
-        String searchResultId = getSearchResultContainer("");
-        WebElement element = this.waitForElementPresent(SEARCH_RESULT_LIST, "cannot find element with search results", 15);
+      if (Platform.getInstance().isAndroid()) {
 
-        By by = getLocatorByString(SEARCH_RESULT);
-        List<WebElement> searchResult = element.findElements(by);
-        System.out.println(searchResult.size());
+            String searchResultId = getSearchResultContainer("");
+            By by_search = getLocatorByString(searchResultId);
+            System.out.println(by_search);
+            WebElement element = this.waitForElementPresent(SEARCH_RESULT_LIST, "cannot find element with search results", 15);
 
-        Iterator<WebElement> it = searchResult.iterator();
-        for (;it.hasNext();  ) {
-            WebElement elem = it.next();
-            String title = elem.findElement(By.xpath(searchResultId)).getAttribute(attribute).toLowerCase();
-            String[] titleWords = title.split("[–| ]").clone();
+            By by = getLocatorByString(SEARCH_RESULT);
+            List<WebElement> searchResult = element.findElements(by);
+            System.out.println(searchResult.size());
 
-            Boolean res = Arrays.stream(titleWords).anyMatch(o -> Objects.equals(o, searchVal));
-            Assert.assertTrue("none element found at :" + title, res);
+            Iterator<WebElement> it = searchResult.iterator();
+            for (;it.hasNext();  ) {
+                WebElement elem = it.next();
+                String title = elem.findElement(by_search).getAttribute(attribute).toLowerCase();
+                String[] titleWords = title.split("[–| ]").clone();
+
+                Boolean res = Arrays.stream(titleWords).anyMatch(o -> Objects.equals(o, searchVal));
+                Assert.assertTrue("none element found at :" + title, res);
+            }
+
+        } else {
+
+          By by = getLocatorByString(SEARCH_RESULT);
+
+          List<WebElement> searchResult =  driver.findElements(by);
+          System.out.println(searchResult.size());
+
+            for (WebElement elem :searchResult ) {
+
+                String title = elem.findElement(by).getAttribute(attribute).toLowerCase();
+                String head = title.split("[\n]")[0];
+                String[] titleWords = head.split("[–| ]").clone();
+
+                Boolean res = Arrays.stream(titleWords).anyMatch(o -> Objects.equals(o, searchVal));
+                Assert.assertTrue("none element found at :" + title, res);
+            }
+
         }
+
     }
 
     public void waitForEmptyResultLabel () {
@@ -143,6 +168,14 @@ public class SearchPageObject extends MainPageObject {
 
     public void assertEmptySearchPage () {
 
-        this.assertElementPresent(SEARCH_EMPTY_PAGE, "cannot find empty message");
+        if (Platform.getInstance().isAndroid()) {
+
+            this.waitForElementPresent(SEARCH_EMPTY_PAGE, "cannot find empty message");
+        } else {
+
+            this.assertElementNotPresent(SEARCH_RESULT, "any articles located on page");
+        }
+
+
     }
 }
