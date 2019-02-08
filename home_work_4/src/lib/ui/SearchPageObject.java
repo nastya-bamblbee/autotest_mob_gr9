@@ -71,7 +71,7 @@ abstract public class SearchPageObject extends MainPageObject {
     public void waitForElementByTitleAndDescription (String titilesubstring, String descsubstring) {
 
         String searchResultXpath = getSearchResultTitleDescription(titilesubstring, descsubstring);
-        //System.out.println(searchResultXpath);
+        System.out.println(searchResultXpath);
         this.waitForElementPresent(searchResultXpath, "cannot find article with title " + titilesubstring + " and description " + descsubstring , 10);
 
     }

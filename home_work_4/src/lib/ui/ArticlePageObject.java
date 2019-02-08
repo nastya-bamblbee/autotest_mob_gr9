@@ -45,6 +45,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     public String getArticleTitleForIOS (String title) {
 
         WebElement titleElement = waitForTitleElementForIOS(title);
+        System.out.println(titleElement.getAttribute("name"));
         return titleElement.getAttribute("name");
     }
 

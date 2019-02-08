@@ -108,11 +108,11 @@ public class SearchTests extends CoreTestCase {
         String searchValue = "Epoch";
         SearchPageObject.typeSearchLine(searchValue);
 
-        String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)" };
-        String arrayDesc[] = {"Wikimedia disambiguation page", "Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
+        String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)111" };
+        String arrayDesc[] = {"Wikimedia disambiguation page", "111Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
 
 
-        for ( int i = 0; i < 3; i++ ) {
+        for ( int i = 0; i < arrayDesc.length; i++ ) {
 
             SearchPageObject.waitForElementByTitleAndDescription(arrayTitle[i],arrayDesc[i]);
 
