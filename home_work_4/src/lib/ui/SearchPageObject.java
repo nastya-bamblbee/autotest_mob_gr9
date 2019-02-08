@@ -5,6 +5,8 @@ import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -71,8 +73,9 @@ abstract public class SearchPageObject extends MainPageObject {
     public void waitForElementByTitleAndDescription (String titilesubstring, String descsubstring) {
 
         String searchResultXpath = getSearchResultTitleDescription(titilesubstring, descsubstring);
-        System.out.println(searchResultXpath);
-        this.waitForElementPresent(searchResultXpath, "cannot find element", 10);
+        //System.out.println(searchResultXpath);
+        this.waitForElementPresent(searchResultXpath, "cannot find article with title " + titilesubstring + " and description " + descsubstring , 10);
+
     }
 
     public void waitForSearchResultList () {
@@ -176,6 +179,7 @@ abstract public class SearchPageObject extends MainPageObject {
             this.assertElementNotPresent(SEARCH_RESULT, "any articles located on page");
         }
 
-
     }
+
+
 }

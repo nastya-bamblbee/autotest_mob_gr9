@@ -6,6 +6,10 @@ import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SearchTests extends CoreTestCase {
 
     @Test
@@ -98,19 +102,26 @@ public class SearchTests extends CoreTestCase {
 
     }
 
-//    @Test// Ex9*
-//    public void testSearchWithTitleAndDescription () {
-//
-//
-//        SearchPageObject SearchPageObject = new  SearchPageObject(driver);
-//        SearchPageObject.initSearchInput();
-//        String searchValue = "Java";
-//        SearchPageObject.typeSearchLine(searchValue);
-//        String titleSearchArticle = "Java";
-//        String descSearchArticle = "Object-oriented programming language";
-//        SearchPageObject.waitForElementByTitleAndDescription(titleSearchArticle, descSearchArticle);
-//
-//    }
+    @Test// Ex9*
+    public void testSearchWithTitleAndDescription () {
+
+
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
+        SearchPageObject.initSearchInput();
+        String searchValue = "Epoch";
+        SearchPageObject.typeSearchLine(searchValue);
+
+        String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)" };
+        String arrayDesc[] = {"Wikimedia disambiguation page", "Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
+
+
+        for ( int i = 0; i < 3; i++ ) {
+
+            SearchPageObject.waitForElementByTitleAndDescription(arrayTitle[i],arrayDesc[i]);
+
+        }
+
+    }
 
 
 }
