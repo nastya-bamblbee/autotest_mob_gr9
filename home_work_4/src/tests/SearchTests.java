@@ -6,9 +6,6 @@ import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SearchTests extends CoreTestCase {
 
