@@ -13,6 +13,7 @@ public class IOSSearchPageObject extends SearchPageObject {
         SEARCH_RESULT = "xpath://XCUIElementTypeLink";
         SEARCH_EMPTY_RESULT_ELEMENT = "xpath://XCUIElementTypeStaticText[@name='No results found']";
         SEARCH_RESULT_LIST = "xpath://XCUIElementTypeCollectionView";
+        //Ex12*: Рефакторинг тестов
         SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL = "xpath://XCUIElementTypeLink[contains(@name,'{TITLESUBSTRING}')]/../XCUIElementTypeLink[contains(@name,'{DESCSUBSTRING}')]";
     }
 
