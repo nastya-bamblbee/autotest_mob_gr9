@@ -1,0 +1,189 @@
+Started by user admin
+Building in workspace /Users/Shared/Jenkins/Home/workspace/iOSTestSuite
+[iOSTestSuite] $ /bin/sh -xe /Users/Shared/Jenkins/tmp/jenkins5103913577403111938.sh
++ sleep 5
++ /usr/local/bin/node /usr/local/lib/node_modules/appium/build/lib/main.js --address 127.0.0.1 --port 4723 --app /Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app --pre-launch --platform-name iOS --platform-version 11.4 --device-name 'iPhone 6' --log-no-color
+(node:1796) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[Appium] Welcome to Appium v1.7.2
+[Appium] Non-default server args:
+[Appium]   address: 127.0.0.1
+[Appium]   launch: true
+[Appium]   logNoColors: true
+[Appium]   platformName: iOS
+[Appium]   platformVersion: 11.4
+[Appium]   deviceName: iPhone 6
+[Appium]   app: /Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app
+[Appium] Deprecated server args:
+[Appium]   --platform-name => --default-capabilities '{"platformName":"iOS"}'
+[Appium]   --platform-version => --default-capabilities '{"platformVersion":"11.4"}'
+[Appium]   --device-name => --default-capabilities '{"deviceName":"iPhone 6"}'
+[Appium]   --app => --default-capabilities '{"app":"/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app"}'
+[Appium] Default capabilities, which will be added to each request unless overridden by desired capabilities:
+[Appium]   platformName: iOS
+[Appium]   platformVersion: 11.4
+[Appium]   deviceName: iPhone 6
+[Appium]   app: /Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app
+[Appium] Appium REST http interface listener started on 127.0.0.1:4723
++ cd /Users/anastasiya/Documents/autotest_les/homeWork_6/JavaAppium
++ export PLATFORM=ios
++ PLATFORM=ios
++ mvn -Dtest=TestSuite test
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for JavaAppium:JavaAppium:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-compiler-plugin is missing. @ line 12, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] -----------------------< JavaAppium:JavaAppium >------------------------
+[INFO] Building JavaAppium 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ JavaAppium ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ JavaAppium ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ JavaAppium ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/anastasiya/Documents/autotest_les/homeWork_6/JavaAppium/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ JavaAppium ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ JavaAppium ---
+[INFO] Surefire report directory: /Users/anastasiya/Documents/autotest_les/homeWork_6/JavaAppium/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running suites.TestSuite
+[HTTP] --> POST /wd/hub/session {"desiredCapabilities":{"app":"/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app","orientation":"PORTRAIT","platformName":"iOS","deviceName":"iPhone 6","platformVersion":"11.4"}}
+[debug] [MJSONWP] Calling AppiumDriver.createSession() with args: [{"app":"/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app","orientation":"PORTRAIT","platformName":"iOS","deviceName":"iPhone 6","platformVersion":"11.4"},null,null]
+[debug] [BaseDriver] Event 'newSessionRequested' logged at 1549914987627 (22:56:27 GMT+0300 (Moscow Standard Time))
+[Appium] Requested iOS support with version >= 10, using XCUITest driver instead of UIAutomation-based driver, since the latter is unsupported on iOS 10 and up.
+[Appium] Creating new XCUITestDriver (v2.64.0) session
+[Appium] Capabilities:
+[Appium]   app: /Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app
+[Appium]   orientation: PORTRAIT
+[Appium]   platformName: iOS
+[Appium]   deviceName: iPhone 6
+[Appium]   platformVersion: 11.4
+[BaseDriver] Session created with session id: 7558ecaf-9f17-4397-85be-0d0e2c6cacfb
+[debug] [XCUITest] Current user: 'anastasiya'
+[debug] [XCUITest] Current version of libimobiledevice: stable 1.2.0 (bottled), HEAD
+[debug] [XCUITest] Xcode version set to '9.4' (tools v10.1.0.0.1.1539992718)
+[debug] [XCUITest] iOS SDK Version set to '11.4'
+[debug] [BaseDriver] Event 'xcodeDetailsRetrieved' logged at 1549914989445 (22:56:29 GMT+0300 (Moscow Standard Time))
+[iOSSim] Constructing iOS simulator for Xcode version 9.4 with udid '29A73AF9-6885-4EC0-9EB6-760A9A328EDB'
+[XCUITest] Determining device to run tests on: udid: '29A73AF9-6885-4EC0-9EB6-760A9A328EDB', real device: false
+[BaseDriver] Using local app '/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app'
+[debug] [BaseDriver] Event 'appConfigured' logged at 1549914989691 (22:56:29 GMT+0300 (Moscow Standard Time))
+[debug] [XCUITest] Checking whether app '/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app' is actually present on file system
+[debug] [XCUITest] App is present
+[debug] [iOS] Getting bundle ID from app '/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app': 'org.wikimedia.wikipedia'
+[debug] [BaseDriver] Event 'resetStarted' logged at 1549914989696 (22:56:29 GMT+0300 (Moscow Standard Time))
+[XCUITest] Not scrubbing third party app in anticipation of uninstall
+[debug] [BaseDriver] Event 'resetComplete' logged at 1549914989807 (22:56:29 GMT+0300 (Moscow Standard Time))
+[XCUITest] Continuing without capturing logs: iOS Simulator with udid 29A73AF9-6885-4EC0-9EB6-760A9A328EDB is not running
+[XCUITest] Setting up simulator
+[debug] [iOS] No reason to set locale
+[debug] [iOS] No iOS / app preferences to set
+[debug] [iOSSim] Matched 1 Simulator cache item for cleanup: /Users/anastasiya/Library/Developer/CoreSimulator/Devices/29A73AF9-6885-4EC0-9EB6-760A9A328EDB/data/Library/Caches/com.apple.mobile.installd.staging
+[debug] [iOSSim] Setting preferences of 29A73AF9-6885-4EC0-9EB6-760A9A328EDB Simulator to {"SimulatorWindowOrientation":"Portrait","SimulatorWindowRotationAngle":0}
+[debug] [iOSSim] Setting common Simulator preferences to {"ConnectHardwareKeyboard":false}
+[debug] [iOSSim] Updated 29A73AF9-6885-4EC0-9EB6-760A9A328EDB Simulator preferences at '/Users/anastasiya/Library/Preferences/com.apple.iphonesimulator.plist' with {"DevicePreferences":{"29A73AF9-6885-4EC0-9EB6-760A9A328EDB":{"SimulatorWindowOrientation":"Portrait","SimulatorWindowRotationAngle":0}},"ConnectHardwareKeyboard":false}
+[debug] [iOSSim] The count of running Simulator UI client instances is 0
+[iOSSim] Booting Simulator with UDID 29A73AF9-6885-4EC0-9EB6-760A9A328EDB...
+[iOSSim] Starting Simulator UI with command: open -Fn /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app --args -CurrentDeviceUDID 29A73AF9-6885-4EC0-9EB6-760A9A328EDB -ConnectHardwareKeyboard 0
+[iOSSim] Simulator with UDID 29A73AF9-6885-4EC0-9EB6-760A9A328EDB booted in 11 seconds
+[debug] [BaseDriver] Event 'simStarted' logged at 1549915001752 (22:56:41 GMT+0300 (Moscow Standard Time))
+[debug] [XCUITest] Starting log capture for iOS Simulator with udid '29A73AF9-6885-4EC0-9EB6-760A9A328EDB', using 'xcrun simctl spawn 29A73AF9-6885-4EC0-9EB6-760A9A328EDB log stream --style compact'
+[debug] [BaseDriver] Event 'logCaptureStarted' logged at 1549915002648 (22:56:42 GMT+0300 (Moscow Standard Time))
+[debug] [XCUITest] Reset requested. Removing app with id 'org.wikimedia.wikipedia' from the device
+[debug] [XCUITest] Installing '/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app' on Simulator with UUID '29A73AF9-6885-4EC0-9EB6-760A9A328EDB'...
+[debug] [XCUITest] The app has been installed successfully.
+[debug] [BaseDriver] Event 'appInstalled' logged at 1549915010730 (22:56:50 GMT+0300 (Moscow Standard Time))
+[XCUITest] Using WDA path: '/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent'
+[XCUITest] Using WDA agent: '/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/WebDriverAgent.xcodeproj'
+[debug] [XCUITest] No obsolete cached processes from previous WDA sessions listening on port 8100 have been found
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [XCUITest] WDA is not listening at 'http://localhost:8100/'
+[debug] [BaseDriver] Event 'wdaStartAttempted' logged at 1549915010828 (22:56:50 GMT+0300 (Moscow Standard Time))
+[XCUITest] Launching WebDriverAgent on the device
+[debug] [XCUITest] Carthage found: '/usr/local/bin/carthage'
+[debug] [XCUITest] Killing running processes 'xcodebuild.*29A73AF9-6885-4EC0-9EB6-760A9A328EDB, iproxy 8100, 29A73AF9-6885-4EC0-9EB6-760A9A328EDB.*XCTRunner' for the device 29A73AF9-6885-4EC0-9EB6-760A9A328EDB...
+[debug] [XCUITest] 'pgrep -nif xcodebuild.*29A73AF9-6885-4EC0-9EB6-760A9A328EDB' didn't detect any matching processes. Return code: 1
+[debug] [XCUITest] 'pgrep -nif iproxy 8100' didn't detect any matching processes. Return code: 1
+[debug] [XCUITest] 'pgrep -nif 29A73AF9-6885-4EC0-9EB6-760A9A328EDB.*XCTRunner' didn't detect any matching processes. Return code: 1
+[debug] [XCUITest] Using Xcode 9.4, so fixing WDA codebase
+[debug] [XCUITest] Beginning test with command 'xcodebuild build-for-testing test-without-building -project /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination id=29A73AF9-6885-4EC0-9EB6-760A9A328EDB IPHONEOS_DEPLOYMENT_TARGET=11.4' in directory '/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent'
+[debug] [XCUITest] Output from xcodebuild will not be logged. To see xcode logging, use 'showXcodeLog' desired capability
+[debug] [XCUITest] Waiting up to 60000ms for WebDriverAgent to start
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [XCUITest] Log file for xcodebuild test: /var/folders/70/j399l8cd28z8jx293pbvzzl00000gn/T/com.apple.dt.XCTest/IDETestRunSession-1D6AC6CD-3601-4D4F-AD39-7283D2650312/WebDriverAgentRunner-EA3FDB76-456B-4ABD-8503-E10AD13CD201/Session-WebDriverAgentRunner-2019-02-11_225653-T2RStR.log
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Proxying [GET /status] to [GET http://localhost:8100/status] with no body
+[debug] [JSONWP Proxy] Got response with status 200: "{\n  \"value\" : {\n    \"state\" : \"success\",\n    \"os\" : {\n      \"name\" : \"iOS\",\n      \"version\" : \"11.4\",\n      \"sdkVersion\" : \"11.3\"\n    },\n    \"ios\" : {\n      \"simulatorVersion\" : \"11.4\",\n      \"ip\" : \"192.168.0.15\"\n    },\n    \"build\" : {\n      \"time\" : \"Feb 10 2019 15:01:17\"\n    }\n  },\n  \"sessionId\" : \"345DED92-0826-48C8-B4C5-EC4B4D7D87D7\",\n  \"status\" : 0\n}"
+[debug] [XCUITest] WebDriverAgent running on ip '192.168.0.15'
+[debug] [XCUITest] WebDriverAgent successfully started after 5418ms
+[debug] [BaseDriver] Event 'wdaSessionAttempted' logged at 1549915016340 (22:56:56 GMT+0300 (Moscow Standard Time))
+[debug] [XCUITest] Sending createSession command to WDA
+[debug] [JSONWP Proxy] Proxying [POST /session] to [POST http://localhost:8100/session] with body: {"desiredCapabilities":{"bundleId":"org.wikimedia.wikipedia","arguments":[],"environment":{},"shouldWaitForQuiescence":true,"shouldUseTestManagerForVisibilityDetection":false,"maxTypingFrequency":60,"shouldUseSingletonTestManager":true}}
+[debug] [JSONWP Proxy] Got response with status 200: {"value":{"sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3","capabilities":{"device":"iphone","browserName":"Wikipedia","sdkVersion":"11.4","CFBundleIdentifier":"org.wikimedia.wikipedia"}},"sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3","status":0}
+[debug] [BaseDriver] Event 'wdaSessionStarted' logged at 1549915018956 (22:56:58 GMT+0300 (Moscow Standard Time))
+[debug] [BaseDriver] Event 'wdaStarted' logged at 1549915018956 (22:56:58 GMT+0300 (Moscow Standard Time))
+[debug] [XCUITest] Setting initial orientation to 'PORTRAIT'
+[debug] [JSONWP Proxy] Proxying [POST /orientation] to [POST http://localhost:8100/session/20A630A5-F132-4CC8-8023-B5FC40DD1ED3/orientation] with body: {"orientation":"PORTRAIT"}
+[debug] [JSONWP Proxy] Got response with status 200: {"value":{},"sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3","status":0}
+[debug] [BaseDriver] Event 'orientationSet' logged at 1549915020509 (22:57:00 GMT+0300 (Moscow Standard Time))
+[Appium] New XCUITestDriver session created successfully, session 7558ecaf-9f17-4397-85be-0d0e2c6cacfb added to master session list
+[debug] [BaseDriver] Event 'newSessionStarted' logged at 1549915020510 (22:57:00 GMT+0300 (Moscow Standard Time))
+[debug] [MJSONWP] Responding to client with driver.createSession() result: {"webStorageEnabled":false,"locationContextEnabled":false,"browserName":"","platform":"MAC","javascriptEnabled":true,"databaseEnabled":false,"takesScreenshot":true,"networkConnectionEnabled":false,"app":"/Users/anastasiya/Documents/autotest_les/home_work_4/apks/Wikipedia.app","orientation":"PORTRAIT","platformName":"iOS","deviceName":"iPhone 6","platformVersion":"11.4","udid":"29A73AF9-6885-4EC0-9EB6-760A9A328EDB"}
+[HTTP] <-- POST /wd/hub/session 200 32887 ms - 490 
+[HTTP] --> POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element {"using":"id","value":"Skip"}
+[debug] [MJSONWP] Calling AppiumDriver.findElement() with args: ["id","Skip","7558ecaf-9f17-4397-85be-0d0e2c6cacfb"]
+[debug] [XCUITest] Executing command 'findElement'
+[debug] [BaseDriver] Valid locator strategies for this request: xpath, id, name, class name, -ios predicate string, -ios class chain, accessibility id
+[debug] [BaseDriver] Waiting up to 0 ms for condition
+[debug] [JSONWP Proxy] Proxying [POST /element] to [POST http://localhost:8100/session/20A630A5-F132-4CC8-8023-B5FC40DD1ED3/element] with body: {"using":"id","value":"Skip"}
+[debug] [JSONWP Proxy] Got response with status 200: {"value":{"ELEMENT":"3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4"},"sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3","status":0}
+[debug] [MJSONWP] Responding to client with driver.findElement() result: {"ELEMENT":"3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4"}
+[HTTP] <-- POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element 200 81 ms - 122 
+[HTTP] --> POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4/click {"id":"3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4"}
+[MJSONWP] Driver proxy active, passing request on via HTTP proxy
+[debug] [XCUITest] Executing command 'proxyReqRes'
+[debug] [JSONWP Proxy] Proxying [POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4/click] to [POST http://localhost:8100/session/20A630A5-F132-4CC8-8023-B5FC40DD1ED3/element/3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4/click] with body: {"id":"3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4"}
+[debug] [JSONWP Proxy] Got response with status 200: {"status":0,"id":"3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4","value":"","sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3"}
+[JSONWP Proxy] Replacing sessionId 20A630A5-F132-4CC8-8023-B5FC40DD1ED3 with 7558ecaf-9f17-4397-85be-0d0e2c6cacfb
+[HTTP] <-- POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/3AEFD361-A1D9-4960-A2C5-3B3FD3425EE4/click 200 646 ms - 118 
+[HTTP] --> POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element {"using":"xpath","value":"//XCUIElementTypeSearchField[@name= 'Search Wikipedia']"}
+[debug] [MJSONWP] Calling AppiumDriver.findElement() with args: ["xpath","//XCUIElementTypeSearchField[@name= 'Search Wikipedia']","7558ecaf-9f17-4397-85be-0d0e2c6cacfb"]
+[debug] [XCUITest] Executing command 'findElement'
+[debug] [BaseDriver] Valid locator strategies for this request: xpath, id, name, class name, -ios predicate string, -ios class chain, accessibility id
+[debug] [BaseDriver] Waiting up to 0 ms for condition
+[debug] [JSONWP Proxy] Proxying [POST /element] to [POST http://localhost:8100/session/20A630A5-F132-4CC8-8023-B5FC40DD1ED3/element] with body: {"using":"xpath","value":"//XCUIElementTypeSearchField[@name= 'Search Wikipedia']"}
+[debug] [JSONWP Proxy] Got response with status 200: {"value":{"ELEMENT":"E8E50972-3935-483C-8E2D-D62EB393CDEE"},"sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3","status":0}
+[debug] [MJSONWP] Responding to client with driver.findElement() result: {"ELEMENT":"E8E50972-3935-483C-8E2D-D62EB393CDEE"}
+[HTTP] <-- POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element 200 1154 ms - 122 
+[HTTP] --> POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/E8E50972-3935-483C-8E2D-D62EB393CDEE/click {"id":"E8E50972-3935-483C-8E2D-D62EB393CDEE"}
+[MJSONWP] Driver proxy active, passing request on via HTTP proxy
+[debug] [XCUITest] Executing command 'proxyReqRes'
+[debug] [JSONWP Proxy] Proxying [POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/E8E50972-3935-483C-8E2D-D62EB393CDEE/click] to [POST http://localhost:8100/session/20A630A5-F132-4CC8-8023-B5FC40DD1ED3/element/E8E50972-3935-483C-8E2D-D62EB393CDEE/click] with body: {"id":"E8E50972-3935-483C-8E2D-D62EB393CDEE"}
+[debug] [JSONWP Proxy] Got response with status 200: {"status":0,"id":"E8E50972-3935-483C-8E2D-D62EB393CDEE","value":"","sessionId":"20A630A5-F132-4CC8-8023-B5FC40DD1ED3"}
+[JSONWP Proxy] Replacing sessionId 20A630A5-F132-4CC8-8023-B5FC40DD1ED3 with 7558ecaf-9f17-4397-85be-0d0e2c6cacfb
+[HTTP] <-- POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element/E8E50972-3935-483C-8E2D-D62EB393CDEE/click 200 670 ms - 118 
+[HTTP] --> POST /wd/hub/session/7558ecaf-9f17-4397-85be-0d0e2c6cacfb/element {"using":"xpath","value":"//XCUIElementTypeSearchField[@value= 'Search Wikipedia']"}
+[debug] [MJSONWP] Calling AppiumDriver.findElement() with args: ["xpath","//XCUIElementTypeSearchField[@value= 'Search Wikipedia']","7558ecaf-9f17-4397-85be-0d0e2c6cacfb"]
+[debug] [XCUITest] Executing command 'findElement'
