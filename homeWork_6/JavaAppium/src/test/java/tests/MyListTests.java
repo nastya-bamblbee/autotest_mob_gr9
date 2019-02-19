@@ -60,7 +60,7 @@ public class MyListTests extends CoreTestCase {
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.openNavigation();
         NavigationUI.clickMyLists();
-        driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
 
         MyListPageObject MyListPageObject = MyListsPageObjectFactory.get(driver);
 

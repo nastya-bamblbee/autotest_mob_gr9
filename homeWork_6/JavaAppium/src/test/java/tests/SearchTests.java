@@ -123,13 +123,13 @@ public class SearchTests extends CoreTestCase {
         String searchValue = "Epoch";
         SearchPageObject.typeSearchLine(searchValue);
 
-        String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)111" };
-        String arrayDesc[] = {"Wikimedia disambiguation page", "111Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
-//        String arrayTitle[] = {"Epoch", "Epoch (astronomy)"};
-//        String arrayDesc[] = {"Disambiguation page providing links to topics that could be referred to by the same search term" , "moment in time used as a reference point for some time-varying astronomical quantity"};
-//
-//        SearchPageObject.waitTest("Epoch");
+        //String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)111" };
+        //String arrayDesc[] = {"Wikimedia disambiguation page", "111Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
+        String arrayTitle[] = {"Epoch", "Epoch (astronomy)", "Epoch (date reference)"};
+        String arrayDesc[] = {"Disambiguation page providing links to topics that could be referred to by the same search term" , "moment in time used as a reference point for some time-varying astronomical quantity","reference point from which time is measured"};
 
+       // SearchPageObject.waitTest("Epoch (Top Cow)", "comic book series");
+//
         for ( int i = 0; i < arrayDesc.length; i++ ) {
 
             SearchPageObject.waitForElementByTitleAndDescription(arrayTitle[i],arrayDesc[i]);

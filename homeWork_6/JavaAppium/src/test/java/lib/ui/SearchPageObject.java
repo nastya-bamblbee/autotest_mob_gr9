@@ -46,15 +46,15 @@ abstract public class SearchPageObject extends MainPageObject {
         return  str.replace("{DESCSUBSTRING}", descsubstring);
     }
 
-    private static String getTest (String titilesubstring) {
+    private static String getTest (String titilesubstring, String descsubstring) {
 
         String str =   SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL.replace("{TITLESUBSTRING}", titilesubstring);
-        return  str;
+        return  str.replace("{DESCSUBSTRING}", descsubstring);
     }
 
-    public void waitTest (String titilesubstring) {
+    public void waitTest (String titilesubstring, String descsubstring) {
 
-        String xpathStr = getTest(titilesubstring);
+        String xpathStr = getTest(titilesubstring, descsubstring);
         System.out.println("это для поиска по тайтлу. мой xpath  " + xpathStr);
         this.waitForElementPresent(xpathStr,"я не нашел элемент((", 10);
     }
