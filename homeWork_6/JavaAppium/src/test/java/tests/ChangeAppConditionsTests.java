@@ -13,6 +13,9 @@ public class ChangeAppConditionsTests extends CoreTestCase {
     @Test
     public void testChangeScreenOrientationOnSearchResult () {
 
+        if (Platform.getInstance().isMW()) {
+            return;
+        }
         String titleBeforeRotation;
         String titleAfterRotation;
         String titleAfterSecondRotation;
@@ -66,6 +69,9 @@ public class ChangeAppConditionsTests extends CoreTestCase {
     @Test
     public void testCheckSearchArticleInBackground () {
 
+        if (Platform.getInstance().isMW()) {
+            return;
+        }
         SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
 
         String searchValue = "Java";

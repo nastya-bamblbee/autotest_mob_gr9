@@ -5,6 +5,9 @@ import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
+import org.openqa.selenium.support.ui.Sleeper;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class SearchTests extends CoreTestCase {
@@ -17,6 +20,7 @@ public class SearchTests extends CoreTestCase {
         String searchValue = "Java";
         SearchPageObject.typeSearchLine(searchValue);
         String titleSearchArticle = "Java (programming language)";
+        //String titleSearchArticle = "object-oriented programming language";
         SearchPageObject.waitForSearchResult(titleSearchArticle);
 
     }
@@ -34,7 +38,9 @@ public class SearchTests extends CoreTestCase {
 
         assertTrue("found less than 2 elements", searchResult > 1);
 
+        driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
         SearchPageObject.clickCancelSearch();
+        driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
         SearchPageObject.assertEmptySearchPage();
     }
 
@@ -42,6 +48,7 @@ public class SearchTests extends CoreTestCase {
     public void testPresenceText () {
 
         String expValue;
+        String attribute;
 
         SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
@@ -49,12 +56,18 @@ public class SearchTests extends CoreTestCase {
         if (Platform.getInstance().isAndroid()){
 
             expValue = "Search…";
+            attribute = "text";
 
-        }else {
+        }else if (Platform.getInstance().isIOS()){
 
             expValue = "Search Wikipedia";
+            attribute = "name";
+        } else {
+
+            expValue = "Search Wikipedia";
+            attribute = "placeholder";
         }
-        String attribute = "name";
+
         SearchPageObject.assertTextSearchLine(expValue, attribute);
         String searchValue = "Java";
         SearchPageObject.typeSearchLine(searchValue);
@@ -64,11 +77,12 @@ public class SearchTests extends CoreTestCase {
     public void testPresenceWordsInSearch () {
 
         SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
-        String searchValue = "1942";
+        String searchValue = "barbe";
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(searchValue);
+        driver.manage().timeouts().implicitlyWait(60000, TimeUnit.MILLISECONDS);
         SearchPageObject.waitForSearchResultList();
-        String attribute = "name";
+        String attribute = "title";
         SearchPageObject.assertContainSearchResult(searchValue, attribute);
     }
 
@@ -80,6 +94,7 @@ public class SearchTests extends CoreTestCase {
         String searchValue = "Linkin Park Discography";
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine(searchValue);
+        driver.manage().timeouts().implicitlyWait(60000, TimeUnit.MILLISECONDS);
         int amountOfResultSearch = SearchPageObject.getAmountOfFoundArticles();
 
         assertTrue("We found too few result", amountOfResultSearch > 0);
@@ -101,7 +116,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test// Ex9*
     public void testSearchWithTitleAndDescription () {
-
+        //доделать для mw
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
@@ -110,7 +125,10 @@ public class SearchTests extends CoreTestCase {
 
         String arrayTitle[] = {"Epoch","Epoch (reference date)", "Epoch (astronomy)111" };
         String arrayDesc[] = {"Wikimedia disambiguation page", "111Reference point from which time is measured", "Moment in time used as a reference point for some time-varying astronomical quantity"};
-
+//        String arrayTitle[] = {"Epoch", "Epoch (astronomy)"};
+//        String arrayDesc[] = {"Disambiguation page providing links to topics that could be referred to by the same search term" , "moment in time used as a reference point for some time-varying astronomical quantity"};
+//
+//        SearchPageObject.waitTest("Epoch");
 
         for ( int i = 0; i < arrayDesc.length; i++ ) {
 

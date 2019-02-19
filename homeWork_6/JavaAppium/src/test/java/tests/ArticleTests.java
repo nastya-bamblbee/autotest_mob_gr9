@@ -24,9 +24,10 @@ public class ArticleTests extends CoreTestCase {
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
-        if (Platform.getInstance().isAndroid()) {
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()) {
 
             title =  ArticlePageObject.getArticleTitle();
+            System.out.println("title of article " + title);
         } else {
 
             title = ArticlePageObject.getArticleTitleForIOS(titleSearchArticle);
@@ -46,14 +47,14 @@ public class ArticleTests extends CoreTestCase {
 
         SearchPageObject  SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
-        String search = "Appium";
+        String search = "Java";
         SearchPageObject.typeSearchLine(search);
-        String searchArticleTitle = "Appium";
+        String searchArticleTitle = "Java (programming language)";
         SearchPageObject.clickByArticleWithSubstring(searchArticleTitle);
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
-        if (Platform.getInstance().isAndroid()){
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()){
 
             ArticlePageObject.waitForTitleElement();
         } else {
@@ -78,15 +79,14 @@ public class ArticleTests extends CoreTestCase {
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
-        if (Platform.getInstance().isAndroid()) {
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()) {
 
             ArticlePageObject.assertTitlePresence();
 
-        }else {
+        } else if (Platform.getInstance().isIOS()) {
 
             ArticlePageObject.assertTitlePresenceForIOS(titleSearchSecondArticle);
         }
-
     }
 
 

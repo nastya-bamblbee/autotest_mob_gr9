@@ -5,6 +5,7 @@ import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ abstract public class SearchPageObject extends MainPageObject {
     protected static  String SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL;
 
 
-    public SearchPageObject(AppiumDriver driver)
+    public SearchPageObject(RemoteWebDriver driver)
     {
         super(driver);
     }
@@ -43,6 +44,19 @@ abstract public class SearchPageObject extends MainPageObject {
 
         String str =   SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL.replace("{TITLESUBSTRING}", titilesubstring);
         return  str.replace("{DESCSUBSTRING}", descsubstring);
+    }
+
+    private static String getTest (String titilesubstring) {
+
+        String str =   SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL.replace("{TITLESUBSTRING}", titilesubstring);
+        return  str;
+    }
+
+    public void waitTest (String titilesubstring) {
+
+        String xpathStr = getTest(titilesubstring);
+        System.out.println("это для поиска по тайтлу. мой xpath  " + xpathStr);
+        this.waitForElementPresent(xpathStr,"я не нашел элемент((", 10);
     }
 
     public void initSearchInput () {
@@ -78,6 +92,7 @@ abstract public class SearchPageObject extends MainPageObject {
 
     public void waitForSearchResultList () {
 
+        System.out.println("Result list locator"+ SEARCH_RESULT_LIST);
         this.waitForElementPresent(SEARCH_RESULT_LIST,"cannot find element with search results", 15);
     }
 
@@ -109,14 +124,16 @@ abstract public class SearchPageObject extends MainPageObject {
                 "cannot find anything",
                 10
                 );
-        return this.getAmountOfElements(SEARCH_RESULT);
+        int N = this.getAmountOfElements(SEARCH_RESULT);
+        System.out.println("я нашел " + N + "результатов");
+        return N;
     }
 
     public void assertContainSearchResult (String searchVal,  String attribute) {
 
       if (Platform.getInstance().isAndroid()) {
 
-            String searchResultId = getSearchResultContainer("");
+            String searchResultId = getSearchResultContainer( "");
             By by_search = getLocatorByString(searchResultId);
             System.out.println(by_search);
             WebElement element = this.waitForElementPresent(SEARCH_RESULT_LIST, "cannot find element with search results", 15);
@@ -135,7 +152,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 Assert.assertTrue("none element found at :" + title, res);
             }
 
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
 
           By by = getLocatorByString(SEARCH_RESULT);
 
@@ -152,7 +169,25 @@ abstract public class SearchPageObject extends MainPageObject {
                 Assert.assertTrue("none element found at :" + title, res);
             }
 
-        }
+        } else {
+
+          By by = getLocatorByString(SEARCH_RESULT);
+          System.out.println("containers locator is " + SEARCH_RESULT);
+
+          List<WebElement> searchResult =  driver.findElements(by);
+          System.out.println(searchResult.size());
+
+          for (WebElement elem :searchResult ) {
+
+
+              String title = elem.getAttribute(attribute).toLowerCase();
+              System.out.println("title in this contain is " + title);
+              String[] titleWords = title.split("[–| ]").clone();
+
+              Boolean res = Arrays.stream(titleWords).anyMatch(o -> Objects.equals(o, searchVal));
+              Assert.assertTrue("none element found at :" + title, res);
+          }
+      }
 
     }
 

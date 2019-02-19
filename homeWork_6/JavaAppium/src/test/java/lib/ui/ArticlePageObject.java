@@ -1,23 +1,27 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.util.concurrent.TimeUnit;
 
 abstract public class ArticlePageObject extends MainPageObject {
 
     protected static String TITLE;
-    protected static  String FOOTER_ELEMENT;
-    protected static  String OPTIONS_BUTTON;
-    protected static  String OPTIONS_ADD_TO_LIST_BUTTON;
-    protected static  String ADD_TO_LIST_OVERLAY;
-    protected static  String LIST_NAME_INPUT;
-    protected static  String LIST_OK_BUTTON;
-    protected static  String CLOSE_ARTICLE_BUTTON;
-    protected static  String LIST_OF_LISTS ;
-    protected static  String FOLDER_NAME_IN_LIST_TPL;
+    protected static String FOOTER_ELEMENT;
+    protected static String OPTIONS_BUTTON;
+    protected static String OPTIONS_ADD_TO_LIST_BUTTON;
+    protected static String ADD_TO_LIST_OVERLAY;
+    protected static String LIST_NAME_INPUT;
+    protected static String LIST_OK_BUTTON;
+    protected static String CLOSE_ARTICLE_BUTTON;
+    protected static String LIST_OF_LISTS ;
+    protected static String FOLDER_NAME_IN_LIST_TPL;
+    protected static String OPTIONS_REMOVE_FROM_MY_LIST_BUTTON;
 
-    public ArticlePageObject (AppiumDriver driver) {
+
+    public ArticlePageObject (RemoteWebDriver driver) {
 
         super(driver);
     }
@@ -30,6 +34,7 @@ abstract public class ArticlePageObject extends MainPageObject {
 
         return TITLE.replace("{TITLE}", title);
     }
+
 
     public WebElement waitForTitleElement() {
 
@@ -53,7 +58,17 @@ abstract public class ArticlePageObject extends MainPageObject {
 
         WebElement titleElement = waitForTitleElement();
 
-        return titleElement.getAttribute("text");
+        if (Platform.getInstance().isMW()){
+
+            String title = titleElement.getText();
+            System.out.println("я нашел тайтл статьи : " + title);
+            return title;
+
+        } else {
+
+            return titleElement.getAttribute("text");
+        }
+
     }
 
     public void swipeToFooter() {
@@ -62,9 +77,12 @@ abstract public class ArticlePageObject extends MainPageObject {
 
             this.swipeUpToFindElement(FOOTER_ELEMENT, "cannot find footer", 40);
 
-        } else {
+        } else  if (Platform.getInstance().isIOS()) {
 
             this.swipeUpTitleElementAppear(FOOTER_ELEMENT,"cannot find footer",40);
+        } else {
+
+            this.scrollWebPageTillElementNotVisible(FOOTER_ELEMENT,"cannot find footer",40);
         }
 
     }
@@ -130,11 +148,14 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     public void closeArticle() {
 
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BUTTON,
-                "cannot find button X (close)",
-                5
-        );
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()){
+
+            this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON, "cannot find button X (close)", 5);
+        } else {
+
+            System.out.println("Method closeArticle() does nothing from platform " + Platform.getInstance().getPlatformVar());
+        }
+
     }
 
     public void assertTitlePresence() {
@@ -151,6 +172,33 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     public void addArticlesToMySaved() {
 
-        this.waitForElementAndClick(OPTIONS_ADD_TO_LIST_BUTTON, "cannot find and click to Sve to later button", 5);
+
+        if (Platform.getInstance().isMW()) {
+            driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+            this.removeArticleFromSaved();
+            System.out.println("я снял флаг 'добавлено в витчлист'. теперь статью можно добавить в вотчлист.");
+        }
+        driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+        this.waitForElementAndClick(OPTIONS_ADD_TO_LIST_BUTTON, "cannot find and click to Sve to later button", 10);
+        driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+        System.out.println("я добавил статью в вотчлист");
     }
+
+    public boolean isElementPresent(String locator) {
+
+        return getAmountOfElements(locator) > 0;
+
+    }
+
+    public void removeArticleFromSaved () {
+
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+
+            this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "cannot find and click to remove button", 5);
+            this.waitForElementPresent(OPTIONS_ADD_TO_LIST_BUTTON, "cannot find add button to add after removing", 5);
+
+        }
+    }
+
+
 }

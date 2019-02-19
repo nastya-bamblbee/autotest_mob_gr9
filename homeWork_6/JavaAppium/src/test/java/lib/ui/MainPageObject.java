@@ -6,7 +6,9 @@ import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,9 +17,9 @@ import java.util.regex.Pattern;
 
 public class MainPageObject {
 
-    protected AppiumDriver driver;
+    protected RemoteWebDriver driver;
 
-    public  MainPageObject(AppiumDriver driver) {
+    public  MainPageObject(RemoteWebDriver driver) {
 
         this.driver = driver;
     }
@@ -75,16 +77,54 @@ public class MainPageObject {
 
     }
 
+    public void scrollWebPageUp () {
+
+        if (Platform.getInstance().isMW()) {
+
+            JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+            JSExecutor.executeScript("window.scrollBy(0, 250)");
+        } else {
+
+            System.out.println("Method scrollWebPageUp() does nothing from platform " + Platform.getInstance().getPlatformVar());
+        }
+    }
+
+    public void scrollWebPageTillElementNotVisible (String locator, String error_message, int max_swipe) {
+
+        int alreadySwiped = 0;
+
+        WebElement element = this.waitForElementPresent(locator, error_message);
+
+        while (!this.isElementLocatedOnTheScreen(locator)) {
+
+            scrollWebPageUp();
+            ++alreadySwiped;
+
+            if (alreadySwiped > max_swipe) {
+                Assert.assertTrue(error_message, element.isDisplayed());
+            }
+        }
+        System.out.println("я скролил " + alreadySwiped + "  раз.");
+    }
+
     public void swipeUp(int timeOfSwipe) {
 
-        TouchAction action = new TouchAction(driver);
-        Dimension size = driver.manage().window().getSize();
+        if (driver instanceof AppiumDriver)
+        {
 
-        int X = size.width / 2;
-        int startY = (int) (size.height * 0.8);
-        int endY = (int) (size.height * 0.3);
+            TouchAction action = new TouchAction((AppiumDriver) driver);
+            Dimension size = driver.manage().window().getSize();
 
-        action.press(X, startY).waitAction(timeOfSwipe).moveTo(X, endY).release().perform();
+            int X = size.width / 2;
+            int startY = (int) (size.height * 0.8);
+            int endY = (int) (size.height * 0.3);
+
+            action.press(X, startY).waitAction(timeOfSwipe).moveTo(X, endY).release().perform();
+        } else {
+
+            System.out.println("Method swipeUp() does nothing from platform " + Platform.getInstance().getPlatformVar());
+        }
+
     }
 
     public void swipeUpQuick() {
@@ -129,12 +169,20 @@ public class MainPageObject {
     public boolean isElementLocatedOnTheScreen (String locator) {
 
         int element_location_by_y = this.waitForElementPresent(locator, "cannot find element", 1).getLocation().getY();
+        if (Platform.getInstance().isMW()) {
+
+            JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+            Object js_result = JSExecutor.executeScript("return window.pageYOffset");
+            element_location_by_y -= Integer.parseInt(js_result.toString());
+        }
         int screen_size_by_y = driver.manage().window().getSize().getHeight();
         return element_location_by_y < screen_size_by_y;
     }
 
     public void clickToElementToTheRightUpperCorner (String locator, String error_message) {
 
+        if (driver instanceof AppiumDriver)
+        {
         String locatorAdd = locator + "/..";
         System.out.println(locatorAdd);
 
@@ -148,13 +196,17 @@ public class MainPageObject {
         int pointToClickX = (rightX + width) - 5 ;
         int pointToClickY = middleY;
 
-        TouchAction action = new TouchAction(driver);
+        TouchAction action = new TouchAction((AppiumDriver) driver);
         action.tap(pointToClickX, pointToClickY).perform();
+        } else {
 
+            System.out.println("Method clickToElementToTheRightUpperCorner() does nothing from platform " + Platform.getInstance().getPlatformVar());
+        }
     }
 
     public void swipeElementToLeft(String locator, String error_messages) {
 
+        if (driver instanceof AppiumDriver) {
         WebElement element = waitForElementPresent(locator, error_messages, 10);
 
         int leftX = element.getLocation().getX();
@@ -163,7 +215,7 @@ public class MainPageObject {
         int lowerY = upperY + element.getSize().getHeight();
         int middleY = (upperY + lowerY) / 2;
 
-        TouchAction action = new TouchAction(driver);
+        TouchAction action = new TouchAction((AppiumDriver) driver);
 
         action.press(rightX, middleY);
         action.waitAction(300);
@@ -178,6 +230,10 @@ public class MainPageObject {
         }
         action.release();
         action.perform();
+        } else {
+
+            System.out.println("Method clickToElementToTheRightUpperCorner() does nothing from platform " + Platform.getInstance().getPlatformVar());
+        }
 
     }
 
@@ -244,10 +300,39 @@ public class MainPageObject {
         } else if (byType.equals("id")) {
 
             return By.id(locator);
-        } else {
+        } else if (byType.equals("css")) {
+
+            return By.cssSelector(locator);
+        }else {
 
             throw new IllegalArgumentException("cannot get type of locator. Locator:" + locatorWithType);
         }
+    }
+
+    public void tryClickElementWithFewAttempt(String locator, String error_message, int ammounOfAttempt) {
+
+        int currentAttempt = 0;
+        boolean needMoreAttempt = true;
+
+        while (needMoreAttempt) {
+
+            try {
+                this.waitForElementAndClick(locator, error_message, 1);
+                needMoreAttempt = false;
+            } catch (Exception e) {
+
+                if (currentAttempt > ammounOfAttempt) {
+
+                    this.waitForElementAndClick(locator, error_message,1);
+
+                }
+            }
+
+            System.out.println("я пытался кликнуть " + currentAttempt + "раз...");
+
+            ++currentAttempt;
+        }
+
     }
 
 }
